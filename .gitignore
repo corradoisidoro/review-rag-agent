@@ -1,0 +1,31 @@
+# --- Python Artifacts ---
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+venv/
+env/
+dist/
+build/
+*.egg-info/
+
+# --- Databases (Crucial for RAG) ---
+vector_store/
+chroma_langchain_db/
+*.sqlite3
+
+# --- Data ---
+data/*.csv
+data/*.json
+data/*.pdf
+
+# --- Environment & Secrets ---
+.env
+.flaskenv
+
+# --- IDEs & OS ---
+.vscode/
+.idea/
+.DS_Store
+*.swp
