@@ -145,16 +145,8 @@ Why: explicit instruction reduces hallucinations and makes results auditable.
 
 ---
 
-## ⚠️ Resource & security notes
-- Local models and embeddings can use substantial RAM/CPU. For moderate datasets, 8–16 GB RAM is recommended. Reduce concurrency/chunk sizes for low-RAM machines.
-- Sanitize PII before ingesting reviews if present.
-- Do not expose local Ollama endpoints publicly without proper auth and rate limiting.
-
----
-
 ## 📜 License & credits
 - License: MIT — add `LICENSE` to repo root.
 - Built with: Ollama, LangChain, ChromaDB
 
 ---
-
