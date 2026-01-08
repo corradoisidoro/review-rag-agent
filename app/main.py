@@ -1,13 +1,23 @@
+import os
 from langchain_ollama.llms import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
-from vector import retriever
+from vector import initialize_retriever
+from dotenv import load_dotenv
 
-model = OllamaLLM(model="llama3.2")
+load_dotenv()
+
+db_path = os.getenv("DB_PATH")
+data_path = os.getenv("DATA_PATH")
+embed_model = os.getenv("EMBED_MODEL")
+llm_model = os.getenv("LLM_MODEL")
+
+# Initialize
+retriever = initialize_retriever(data_path, db_path, embed_model)
+model = OllamaLLM(model=llm_model)
 
 template = """
 You are an expert in answering questions about pizza restaurants. 
-Use the following reviews to answer the question. If the answer isn't in the reviews, 
-honestly state that you don't know.
+Use the following reviews to answer the question.
 Relevant reviews: {reviews}
 Question: {question}
 """
@@ -15,17 +25,12 @@ Question: {question}
 prompt = ChatPromptTemplate.from_template(template)
 chain = prompt | model
 
-print("RAG Agent initialized. Database ready.")
+if __name__ == "__main__":
+    print("RAG Agent initialized.")
+    while True:
+        question = input("\nAsk your question (q to quit): ").strip()
+        if question.lower() == "q":
+            break
 
-while True:
-    print("\n" + "-"*30)
-
-    # question = input("Ask your question (q to quit): ")
-    question = input("Ask your question (q to quit): ").strip()
-
-    if question.lower() == "q":
-        break
-
-    reviews = retriever.invoke(question)
-    result = chain.invoke({"reviews": reviews, "question": question})
-    print(result)
+        reviews = retriever.invoke(question)
+        print(chain.invoke({"reviews": reviews, "question": question}))

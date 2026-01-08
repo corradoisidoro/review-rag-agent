@@ -2,3 +2,7 @@ langchain
 langchain-ollama
 langchain-chroma
 pandas
+python-dotenv
+
+# For testing
+pytest
