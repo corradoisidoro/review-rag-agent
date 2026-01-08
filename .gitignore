@@ -16,7 +16,7 @@ chroma_langchain_db/
 *.sqlite3
 
 # --- Data ---
-data/*.csv
+# data/*.csv
 data/*.json
 data/*.pdf
 
